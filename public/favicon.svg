@@ -1,0 +1,38 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="letters" x1="12%" y1="10%" x2="86%" y2="92%">
+      <stop offset="0%" stop-color="#ecfeff" />
+      <stop offset="40%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <g filter="url(#soft-glow)">
+    <text
+      x="6"
+      y="43"
+      font-family="'DejaVu Sans', 'Arial', sans-serif"
+      font-size="28"
+      font-weight="800"
+      letter-spacing="0"
+      fill="url(#letters)"
+    >
+      W
+    </text>
+    <circle cx="32" cy="45" r="2.6" fill="#e2e8f0" />
+    <text
+      x="38"
+      y="43"
+      font-family="'DejaVu Sans', 'Arial', sans-serif"
+      font-size="28"
+      font-weight="800"
+      letter-spacing="0"
+      fill="url(#letters)"
+    >
+      B
+    </text>
+  </g>
+</svg>
