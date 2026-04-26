@@ -131,7 +131,7 @@ function buildSnapshot(user: GitHubUser, repos: GitHubRepo[]): GitHubSnapshot {
 
   const recentRepos = [...activeRepos]
     .sort((left, right) => Date.parse(right.pushed_at) - Date.parse(left.pushed_at))
-    .slice(0, 4)
+    .slice(0, 3)
     .map((repo) => ({
       description: repo.description,
       id: repo.id,

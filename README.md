@@ -1,11 +1,19 @@
 # Wuilmer Bolívar | Portafolio Interactivo
 
+![Preview del Portafolio](./public/preview.png)
+
 Este es el repositorio del código fuente del portafolio interactivo de Wuilmer Bolívar. Desarrollado con tecnologías modernas enfocadas en el rendimiento, accesibilidad, y un diseño enfocado al usuario final.
 
 ## 🔗 Enlaces Profesionales
 
 * **LinkedIn**: [https://www.linkedin.com/in/wuilmerbolivar/](https://www.linkedin.com/in/wuilmerbolivar/)
 * **GitHub**: [https://github.com/wuilmerbolivar](https://github.com/wuilmerbolivar)
+
+## 📊 Impacto del Proyecto
+
+* **Optimización**: Automatización de reportes ITSM.
+* **Rendimiento**: -120h de impacto operativo ahorradas.
+* **Stack**: Arquitectura offline-first y diseño resiliente.
 
 ## ✨ Tecnologías Utilizadas
 
