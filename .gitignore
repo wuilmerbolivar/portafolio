@@ -1,0 +1,26 @@
+# --- Dependencias y Builds ---
+node_modules/
+dist/
+build/
+coverage/
+
+# --- Logs y Temporales ---
+*.log
+.DS_Store
+Thumbs.db
+
+# --- Variables de Entorno (Seguridad) ---
+.env*
+!.env.example
+
+# --- Archivos de Sistema y Errores ---
+**/AppData/
+**/.lighthouse/
+**/*Cache*/
+**/*.data_[0-9]*
+undefined:/
+
+# --- Editores y Herramientas ---
+.vscode/
+.idea/
+*.sublime-project
