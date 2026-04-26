@@ -75,6 +75,8 @@ Generará una carpeta `/dist` con los archivos optimizados listos para ser servi
 
 ## 📝 Política de Uso y Licencia
 
-Eres libre de utilizar el código fuente de este proyecto como base para tu propio portafolio o proyecto, **incluso de forma y uso comercial**.
+Este proyecto se comparte bajo la licencia **Creative Commons Atribución (CC BY)**.
 
-El único requerimiento para utilizar y adaptar esta obra es brindar **un reconocimiento o nombramiento explícito al desarrollador original (Wuilmer Bolívar)** visible dentro del código o en la documentación de tu plataforma final.
+Esto significa que puedes **compartir, reutilizar y adaptar** el contenido y el código fuente, **incluso con fines comerciales**, siempre que otorgues el crédito correspondiente al autor original.
+
+Al reutilizar o derivar este trabajo, debes incluir una atribución visible a **Wuilmer Bolívar** dentro del código, la documentación o la plataforma final donde se publique la adaptación.

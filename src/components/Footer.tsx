@@ -5,8 +5,8 @@ export default function Footer() {
   const { lang } = useLanguage();
   
   return (
-    <footer className="w-full py-8 mt-12 border-t border-white/5 flex flex-col items-center justify-center gap-2 relative z-10">
-      <p className="text-[0.75rem] text-slate-400 text-center px-4 leading-relaxed">
+    <footer className="w-full py-8 mt-12 border-t border-white/5 flex flex-col items-center justify-center gap-1.5 relative z-10">
+      <p className="text-[0.75rem] text-slate-300 text-center px-4 leading-relaxed">
         {lang === 'es' 
           ? 'El código fuente de este sitio web está disponible para su uso en ' 
           : 'The source code of this website is available for use on '}
@@ -14,10 +14,13 @@ export default function Footer() {
           href="https://github.com/wuilmerbolivar/portafolio" 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="text-brand-blue hover:underline hover:text-brand-green transition-colors inline-flex items-center gap-1 ml-1"
+          className="text-brand-blue font-medium underline decoration-current underline-offset-3 hover:text-brand-green transition-colors inline-flex items-center gap-1 ml-1"
         >
           <Github size={12} /> GitHub
-        </a>.
+        </a>
+      </p>
+      <p className="text-[0.72rem] text-slate-400 text-center px-4 leading-relaxed">
+        {lang === 'es' ? 'Creative Commons Atribución (CC BY)' : 'Creative Commons Attribution (CC BY)'}
       </p>
     </footer>
   );
