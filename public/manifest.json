@@ -1,13 +1,14 @@
 {
-  "name": "Portafolio de Wuilmer Bolívar",
-  "short_name": "Wuilmer Bolívar",
-  "description": "Experto en Gestión de Incidentes y Problemas. Construyo las herramientas que aseguran la continuidad operativa.",
+  "name": "Wuilmer Bolívar Portfolio",
+  "short_name": "Wuilmer",
+  "description": "Portfolio focused on ITSM, incident management, automation, cybersecurity, and recruiter-ready proof of work.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0f172a",
+  "background_color": "#050b16",
   "theme_color": "#050b16",
+  "lang": "es",
   "icons": [
     {
       "src": "/favicon-32x32.png",
@@ -40,12 +41,5 @@
       "purpose": "any"
     }
   ],
-  "screenshots": [
-    {
-      "src": "/favicon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    }
-  ],
-  "categories": ["productivity", "business"]
+  "categories": ["business", "productivity", "developer"]
 }
