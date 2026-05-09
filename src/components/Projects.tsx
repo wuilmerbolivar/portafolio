@@ -1,6 +1,7 @@
-import { Terminal, Lightbulb, Github, BarChart } from 'lucide-react';
+import { ArrowUpRight, BarChart, Github, Lightbulb, Terminal } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { lazy, Suspense, useState } from 'react';
+import { featuredProjects, repositoryProjects } from '../data/projects';
 
 const BPPModal = lazy(() => import('./BPPModal'));
 
@@ -10,84 +11,107 @@ export default function Projects() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section id="projects" className="bg-linear-to-br from-brand-card to-brand-dark border-l-4 border-l-brand-green rounded-2xl p-6 relative overflow-hidden shadow-lg border-y border-r border-y-white/5 border-r-white/5 group">
-        <div className="absolute -right-5 -bottom-5 text-[8rem] font-black opacity-5 font-mono pointer-events-none select-none text-white transition-transform group-hover:scale-105 duration-700">
-          BPP
+      <section id="projects" className="bg-brand-card border border-white/5 rounded-2xl p-6 shadow-lg">
+        <div className="flex flex-col gap-3 mb-6">
+          <h2 className="text-[0.875rem] text-brand-blue font-semibold uppercase tracking-widest">
+            {t('projects.title')}
+          </h2>
+          <p className="text-[0.95rem] text-slate-400 leading-relaxed max-w-3xl">
+            {lang === 'es'
+              ? 'Selección de proyectos que muestran experiencia en operaciones TI, ciberseguridad, automatización, scripting y construcción pública.'
+              : 'Selection of projects that showcase experience across IT operations, cybersecurity, automation, scripting, and public building.'}
+          </p>
         </div>
-        
-        <div className="relative z-10 flex flex-col xl:flex-row xl:justify-between xl:items-center gap-6">
-          <div className="max-w-[70%] xl:max-w-[60%]">
-            <h2 className="text-[0.75rem] text-brand-blue font-bold uppercase tracking-widest mb-4 flex items-center gap-2 bg-brand-blue/10 w-fit px-3 py-1 rounded-full border border-brand-blue/20">
-              <Lightbulb size={14} /> {t('projects.featured')}
-            </h2>
-            <h3 className="text-[1.5rem] font-bold text-white mb-3 leading-tight">
-              {t('projects.title1')}
-            </h3>
-            <p className="text-[0.875rem] text-slate-400 leading-[1.6] mb-5">
-              {t('projects.desc1')}
-            </p>
 
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="font-mono bg-brand-blue/10 border border-brand-blue/30 text-brand-blue px-2 py-1 rounded text-[0.75rem]">React</span>
-              <span className="font-mono bg-brand-blue/10 border border-brand-blue/30 text-brand-blue px-2 py-1 rounded text-[0.75rem]">Vite</span>
-              <span className="font-mono bg-brand-blue/10 border border-brand-blue/30 text-brand-blue px-2 py-1 rounded text-[0.75rem]">Tailwind CSS</span>
-              <span className="font-mono bg-brand-green/10 border border-brand-green/30 text-brand-green px-2 py-1 rounded text-[0.75rem]">Full-Stack ITSM</span>
-            </div>
-
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 text-[0.875rem] font-medium text-brand-dark bg-brand-green hover:bg-brand-green/90 transition-colors px-4 py-2 rounded-lg border border-brand-green/20"
-              aria-label={t('projects.bppDeepDiveButton')}
-            >
-              <BarChart size={16} aria-hidden="true" />
-              {t('projects.bppDeepDiveButton')}
-            </button>
-          </div>
-
-          <div className="xl:text-right mt-2 xl:mt-0 flex flex-col justify-center bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm self-start xl:self-auto">
-            <div className="text-[0.65rem] text-slate-400 uppercase tracking-widest mb-1">{t('projects.impactTitle1')}</div>
-            <div className="text-[2.25rem] font-black text-brand-green leading-none">{t('projects.impactValue1')}</div>
-            <div className="text-[0.75rem] text-slate-300 mt-2 font-medium">{t('projects.impactDesc1')}</div>
-          </div>
+        <div className="grid gap-4 xl:grid-cols-2">
+          {featuredProjects.map((project) => (
+            <article key={project.slug} className={`relative overflow-hidden rounded-2xl border p-5 shadow-lg ${project.slug === 'bpp' ? 'border-brand-green/25 bg-linear-to-br from-brand-card to-brand-dark' : 'border-white/8 bg-linear-to-br from-white/6 to-white/3'}`}>
+              <div className="flex items-center justify-between gap-3 mb-4">
+                <span className="inline-flex items-center gap-2 rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-brand-blue">
+                  <Lightbulb size={14} aria-hidden="true" />
+                  {project.status[lang]}
+                </span>
+                <span className="text-[0.72rem] uppercase tracking-[0.18em] text-slate-400">{project.category[lang]}</span>
+              </div>
+              <h3 className="text-[1.25rem] font-bold text-white">{project.title}</h3>
+              <p className="mt-3 text-[0.875rem] leading-[1.7] text-slate-400">{project.summary[lang]}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <span key={item} className="rounded-md border border-white/10 bg-black/20 px-2.5 py-1 text-[0.72rem] font-mono text-slate-300">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <div className="text-[0.68rem] uppercase tracking-[0.18em] text-slate-500">{t('projects.impact')}</div>
+                  <div className="text-[1.15rem] font-semibold text-brand-green">{project.impact}</div>
+                </div>
+                <div className="flex gap-3">
+                  {project.slug === 'bpp' ? (
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="inline-flex items-center gap-2 rounded-lg border border-brand-green/20 bg-brand-green px-4 py-2 text-[0.875rem] font-medium text-brand-dark transition-colors hover:bg-brand-green/90"
+                      aria-label={t('projects.bppDeepDiveButton')}
+                    >
+                      <BarChart size={16} aria-hidden="true" />
+                      {t('projects.bppDeepDiveButton')}
+                    </button>
+                  ) : null}
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-[0.875rem] font-medium text-white transition-colors hover:bg-white/10"
+                  >
+                    {t('projects.openLive')}
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="bg-brand-card rounded-2xl p-6 relative overflow-hidden shadow-lg border border-white/5 group mt-6">
-
-        <div className="absolute -right-5 -bottom-5 text-[8rem] font-black opacity-3 font-mono pointer-events-none select-none text-white transition-transform group-hover:scale-105 duration-700">
-          {'{}'}
+      <section className="bg-brand-card rounded-2xl p-6 relative overflow-hidden shadow-lg border border-white/5">
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <h2 className="text-[0.75rem] text-slate-300 font-bold uppercase tracking-widest flex items-center gap-2 bg-white/5 w-fit px-3 py-1 rounded-full border border-white/10">
+            <Terminal size={14} aria-hidden="true" /> {t('projects.repository')}
+          </h2>
+          <a href="https://github.com/wuilmerbolivar?tab=repositories" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[0.875rem] font-medium text-brand-blue hover:text-white transition-colors" aria-label={t('projects.openRepo')}>
+            <Github size={16} aria-hidden="true" />
+            GitHub
+          </a>
         </div>
 
-        <div className="relative z-10 flex flex-col xl:flex-row xl:justify-between xl:items-center gap-6">
-          <div className="max-w-[70%] xl:max-w-[60%]">
-            <h2 className="text-[0.75rem] text-slate-300 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 bg-white/5 w-fit px-3 py-1 rounded-full border border-white/10">
-              <Terminal size={14} aria-hidden="true" /> {t('projects.complementary')}
-            </h2>
-            <h3 className="text-[1.25rem] font-bold text-white mb-3 leading-tight">
-              {t('projects.title2')}
-            </h3>
-            <p className="text-[0.875rem] text-slate-400 leading-[1.6] mb-5">
-              {t('projects.desc2')}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              <span className="font-mono bg-slate-800 border border-slate-700 text-slate-300 px-2 py-1 rounded text-[0.75rem]">PHP</span>
-              <span className="font-mono bg-slate-800 border border-slate-700 text-slate-300 px-2 py-1 rounded text-[0.75rem]">JavaScript</span>
-              <span className="font-mono bg-slate-800 border border-slate-700 text-slate-300 px-2 py-1 rounded text-[0.75rem]">Python</span>
-              <span className="font-mono bg-slate-800 border border-slate-700 text-slate-300 px-2 py-1 rounded text-[0.75rem]">Bash</span>
-            </div>
-
-            <a href="https://github.com/wuilmerbolivar?tab=repositories" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-[0.875rem] font-medium text-brand-blue hover:text-white transition-colors bg-brand-blue/10 px-4 py-2 rounded-lg border border-brand-blue/20" aria-label={t('projects.viewGithub')}>
-              <Github size={16} aria-hidden="true" />
-              {t('projects.viewGithub')}
+        <div className="grid gap-4 md:grid-cols-2">
+          {repositoryProjects.map((project) => (
+            <a
+              key={project.slug}
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl border border-white/8 bg-linear-to-br from-white/6 to-white/3 p-5 hover:border-brand-blue/25 hover:bg-white/[0.06] transition-colors"
+            >
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <span className="inline-flex rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-slate-300">
+                  {project.category[lang]}
+                </span>
+                <ArrowUpRight size={15} className="text-slate-500" aria-hidden="true" />
+              </div>
+              <h3 className="text-[1rem] font-semibold text-white">{project.title}</h3>
+              <p className="mt-2 text-[0.82rem] leading-[1.7] text-slate-400">{project.summary[lang]}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <span key={item} className="rounded-md border border-white/10 bg-black/20 px-2.5 py-1 text-[0.68rem] font-mono text-slate-300">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 text-[0.78rem] font-medium text-brand-green">{project.impact}</div>
             </a>
-          </div>
-
-          <div className="xl:text-right mt-2 xl:mt-0 flex flex-col justify-center bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm self-start xl:self-auto">
-            <div className="text-[0.65rem] text-slate-400 uppercase tracking-widest mb-1">{t('projects.impactTitle2')}</div>
-            <div className="text-[2.25rem] font-black text-white leading-none">{t('projects.impactValue2')}</div>
-            <div className="text-[0.75rem] text-slate-300 mt-2 font-medium">{t('projects.impactDesc2')}</div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -96,7 +120,7 @@ export default function Projects() {
           fallback={
             <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/55 backdrop-blur-sm">
               <div className="rounded-2xl border border-white/10 bg-brand-card px-5 py-4 text-sm text-slate-300 shadow-xl">
-                {lang === 'es' ? 'Cargando módulo...' : 'Loading module...'}
+                {lang === 'es' ? 'Cargando modulo...' : 'Loading module...'}
               </div>
             </div>
           }

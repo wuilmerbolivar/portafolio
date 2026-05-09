@@ -1,18 +1,11 @@
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { ExternalLink, Quote } from 'lucide-react';
+import { references } from '../data/references';
+import { siteConfig } from '../data/site';
+import type { Reference } from '../types/content';
 
-type Reference = {
-  quote: string;
-  name: string;
-  role: string;
-  initials: string;
-  profileUrl: string;
-  avatarUrl: string;
-  accent: 'blue' | 'green';
-};
-
-function ReferenceCard({ reference, readMoreLabel, viewProfileLabel }: { reference: Reference; readMoreLabel: string; viewProfileLabel: string }) {
+function ReferenceCard({ reference, readMoreLabel, viewProfileLabel, lang }: { reference: Reference; readMoreLabel: string; viewProfileLabel: string; lang: 'es' | 'en' }) {
   const [avatarFailed, setAvatarFailed] = useState(false);
   const accentClass = reference.accent === 'blue' ? 'text-brand-blue' : 'text-brand-green';
   const linkClass = reference.accent === 'blue' ? 'text-brand-blue hover:text-brand-green' : 'text-brand-green hover:text-brand-blue';
@@ -21,8 +14,8 @@ function ReferenceCard({ reference, readMoreLabel, viewProfileLabel }: { referen
     <article className="bg-linear-to-br from-white/6 to-white/3 border border-white/10 rounded-xl p-5 relative">
       <Quote size={20} className={`${reference.accent === 'blue' ? 'text-brand-blue/50' : 'text-brand-green/50'} absolute top-4 right-4`} />
       <p className="text-[0.875rem] text-slate-300 italic mb-4 leading-relaxed pr-8">
-        "{reference.quote}"
-        <a href="https://www.linkedin.com/in/wuilmerbolivar/details/recommendations/" target="_blank" rel="noopener noreferrer" className={`${linkClass} ml-2 text-[0.75rem] inline-block font-medium`}>
+        "{reference.quote[lang]}"
+        <a href={siteConfig.linkedinRecommendations} target="_blank" rel="noopener noreferrer" className={`${linkClass} ml-2 text-[0.75rem] inline-block font-medium`}>
           {readMoreLabel}
         </a>
       </p>
@@ -45,7 +38,7 @@ function ReferenceCard({ reference, readMoreLabel, viewProfileLabel }: { referen
           </div>
           <div className="min-w-0">
             <div className="text-[0.85rem] font-bold text-white leading-tight truncate">{reference.name}</div>
-            <div className={`text-[0.7rem] font-mono mt-0.5 truncate ${accentClass}`}>{reference.role}</div>
+            <div className={`text-[0.7rem] font-mono mt-0.5 truncate ${accentClass}`}>{reference.role[lang]}</div>
           </div>
         </div>
         <a
@@ -64,41 +57,21 @@ function ReferenceCard({ reference, readMoreLabel, viewProfileLabel }: { referen
 }
 
 export default function Testimonials() {
-  const { t } = useLanguage();
-  const references: Reference[] = [
-    {
-      quote: t('testimonials.quote1'),
-      name: t('testimonials.name1'),
-      role: t('testimonials.role1'),
-      initials: t('testimonials.initials1'),
-      profileUrl: 'https://www.linkedin.com/in/maalfer1/',
-      avatarUrl: 'https://unavatar.io/linkedin/user:maalfer1?fallback=false',
-      accent: 'blue',
-    },
-    {
-      quote: t('testimonials.quote2'),
-      name: t('testimonials.name2'),
-      role: t('testimonials.role2'),
-      initials: t('testimonials.initials2'),
-      profileUrl: 'https://www.linkedin.com/in/chuquimbalquic/',
-      avatarUrl: 'https://unavatar.io/linkedin/user:chuquimbalquic?fallback=false',
-      accent: 'green',
-    },
-  ];
+  const { t, lang } = useLanguage();
 
   return (
     <section id="testimonials" className="bg-brand-card border border-white/5 rounded-2xl p-6 shadow-lg relative overflow-hidden">
       <div className="absolute top-0 right-0 p-6 opacity-3 pointer-events-none">
         <Quote size={120} />
       </div>
-      
+
       <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
         <h2 className="text-[0.875rem] text-brand-blue font-semibold uppercase tracking-widest">
           {t('testimonials.title')}
         </h2>
-        <a 
-          href="https://www.linkedin.com/in/wuilmerbolivar/details/recommendations/" 
-          target="_blank" 
+        <a
+          href={siteConfig.linkedinRecommendations}
+          target="_blank"
           rel="noopener noreferrer"
           className="text-[0.75rem] text-slate-400 hover:text-white transition-colors"
         >
@@ -113,6 +86,7 @@ export default function Testimonials() {
             reference={reference}
             readMoreLabel={t('testimonials.readMore')}
             viewProfileLabel={t('testimonials.viewProfile')}
+            lang={lang}
           />
         ))}
       </div>

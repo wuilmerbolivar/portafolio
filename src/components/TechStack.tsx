@@ -1,61 +1,27 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
-import { techStack } from '../data';
+import { certifications } from '../data/certifications';
 import { useLanguage } from '../context/LanguageContext';
 
 const GitHubInsights = lazy(() => import('./GitHubInsights'));
 
-const certs = [
+const techStack = [
   {
-    name: 'eJPTv2',
-    issuer: 'eLearnSecurity',
-    url: 'https://certs.ine.com/a8b76c4c-edec-44fc-a43c-ed0f25c8c152#acc.2SjFMl0q',
-    short: 'eJPT',
-    borderColor: 'border-red-400',
-    bgColor: 'bg-red-950/60',
-    textColor: 'text-red-200',
-    containerBorder: 'border-red-400/30'
+    category: 'ITSM & Operations',
+    skills: ['Major Incident Management', 'Problem Management', 'SLA / KPI / RCA', 'Helix ITSM / Aranda'],
   },
   {
-    name: 'CEH Practical',
-    issuer: 'EC-Council',
-    url: 'https://www.credly.com/badges/04eefd8d-564f-44fc-add5-d1d8c0012aab/linked_in_profile',
-    short: 'CEHP',
-    borderColor: 'border-amber-400',
-    bgColor: 'bg-amber-950/60',
-    textColor: 'text-amber-200',
-    containerBorder: 'border-amber-400/30'
+    category: 'Development',
+    skills: ['React', 'TypeScript', 'Vite', 'PHP', 'Python'],
   },
   {
-    name: 'RWPC',
-    issuer: 'CertiProf',
-    url: 'https://www.linkedin.com/in/wuilmerbolivar/details/certifications/848021994/multiple-media-viewer?profileId=ACoAACOnd40BdFpPag1L5PQ9akHnU-BF5sBdBS8&treasuryMediaId=1714539975054&type=DOCUMENT&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BAK1auev5QfiJqhunMVbvUg%3D%3D',
-    short: 'RWPC',
-    borderColor: 'border-sky-400',
-    bgColor: 'bg-sky-950/60',
-    textColor: 'text-sky-200',
-    containerBorder: 'border-sky-400/30'
+    category: 'Infra & Security',
+    skills: ['Linux', 'Docker', 'Bash', 'Hardening', 'Pentesting'],
   },
   {
-    name: 'Cyber Security',
-    issuer: 'TryHackMe',
-    url: 'https://www.credly.com/badges/f8ae3d90-2ada-4b77-bfce-8113ce5893c8/linked_in_profile',
-    short: 'THM',
-    borderColor: 'border-emerald-400',
-    bgColor: 'bg-emerald-950/60',
-    textColor: 'text-emerald-200',
-    containerBorder: 'border-emerald-400/30'
+    category: 'Data & Reporting',
+    skills: ['IndexedDB', 'MySQL', 'PostgreSQL', 'Operational Dashboards'],
   },
-  {
-    name: 'Prep. eJPTv2',
-    issuer: 'Fórmula Hacking',
-    url: 'https://formulahacking.es/wp-content/uploads/learn-press-cert/07efc7b6c53a49e936df8b93ef2c784c.png',
-    short: 'Prep',
-    borderColor: 'border-fuchsia-400',
-    bgColor: 'bg-fuchsia-950/60',
-    textColor: 'text-fuchsia-200',
-    containerBorder: 'border-fuchsia-400/30'
-  }
 ];
 
 export default function TechStack() {
@@ -154,13 +120,13 @@ export default function TechStack() {
             <ExternalLink size={14} aria-hidden="true" />
           </a>
         </div>
-        
+
         <div className="flex flex-wrap gap-4 pb-2">
-          {certs.map((cert) => (
-            <a 
+          {certifications.map((cert) => (
+            <a
               key={cert.name}
-              href={cert.url} 
-              target="_blank" 
+              href={cert.url}
+              target="_blank"
               rel="noopener noreferrer"
               className={`flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-[#0a0a0a] border ${cert.containerBorder} px-4 py-3 rounded-xl flex-1 min-w-37.5 sm:min-w-50 hover:bg-white/5 transition-colors`}
               title={`Ver certificado ${cert.name}`}
