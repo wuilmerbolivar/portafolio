@@ -39,6 +39,10 @@ export type Project = {
   category: LocalizedText;
   stack: string[];
   impact: string;
+  tier: 1 | 2;
+  caseStudy?: ProjectCaseStudy;
+  liveUrl?: string;
+  repoUrl?: string;
 };
 
 export type ExperienceItem = {
@@ -69,3 +73,49 @@ export type Reference = {
   avatarUrl: string;
   accent: 'blue' | 'green';
 };
+
+// ─── Case Study ──────────────────────────────────────────────────────────────
+
+export type Lang = 'es' | 'en';
+
+export interface LocalizedString {
+  es: string;
+  en: string;
+}
+
+export interface CaseStudyMetric {
+  value: string;
+  label: LocalizedString;
+}
+
+export interface CaseStudyScreenshot {
+  src: string;
+  alt: LocalizedString;
+}
+
+export interface ProjectCaseStudy {
+  slug:
+    | 'bpp'
+    | '4k4m1m3'
+    | 'slange'
+    | 'postslange'
+    | 'xmsizer'
+    | 'alumnos-grow-up'
+    | 'initnulltv';
+  tier: 1 | 2;
+  name: string;
+  headline: LocalizedString;
+  problem: LocalizedString;
+  solution: LocalizedString;
+  architecture: LocalizedString;
+  keyFeatures: LocalizedString[];
+  metrics: CaseStudyMetric[];
+  stack: string[];
+  links: {
+    live?: string;
+    repo?: string;
+    blog?: string;
+  };
+  screenshots: CaseStudyScreenshot[];
+  recruiterNote?: LocalizedString;
+}
