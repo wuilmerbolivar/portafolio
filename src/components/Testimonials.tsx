@@ -13,9 +13,9 @@ function ReferenceCard({ reference, readMoreLabel, viewProfileLabel, lang }: { r
   return (
     <article className="bg-linear-to-br from-white/6 to-white/3 border border-white/10 rounded-xl p-5 relative">
       <Quote size={20} className={`${reference.accent === 'blue' ? 'text-brand-blue/50' : 'text-brand-green/50'} absolute top-4 right-4`} />
-      <p className="text-[0.875rem] text-slate-300 italic mb-4 leading-relaxed pr-8">
+      <p className="mb-4 pr-8 text-[0.96rem] leading-relaxed text-slate-200 italic">
         "{reference.quote[lang]}"
-        <a href={siteConfig.linkedinRecommendations} target="_blank" rel="noopener noreferrer" className={`${linkClass} ml-2 text-[0.75rem] inline-block font-medium`}>
+        <a href={siteConfig.linkedinRecommendations} target="_blank" rel="noopener noreferrer" className={`${linkClass} ml-2 inline-block text-[0.82rem] font-medium`}>
           {readMoreLabel}
         </a>
       </p>
@@ -37,15 +37,15 @@ function ReferenceCard({ reference, readMoreLabel, viewProfileLabel, lang }: { r
             )}
           </div>
           <div className="min-w-0">
-            <div className="text-[0.85rem] font-bold text-white leading-tight truncate">{reference.name}</div>
-            <div className={`text-[0.7rem] font-mono mt-0.5 truncate ${accentClass}`}>{reference.role[lang]}</div>
+            <div className="truncate text-[0.95rem] font-bold leading-tight text-white">{reference.name}</div>
+            <div className={`mt-0.5 truncate font-mono text-[0.8rem] ${accentClass}`}>{reference.role[lang]}</div>
           </div>
         </div>
         <a
           href={reference.profileUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-[0.75rem] text-slate-400 hover:text-white transition-colors shrink-0"
+          className="inline-flex shrink-0 items-center gap-1 text-[0.82rem] text-slate-300 transition-colors hover:text-white"
           aria-label={`${viewProfileLabel}: ${reference.name}`}
         >
           {viewProfileLabel}
@@ -66,14 +66,14 @@ export default function Testimonials() {
       </div>
 
       <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-        <h2 className="text-[0.875rem] text-brand-blue font-semibold uppercase tracking-widest">
+        <h2 className="text-[1rem] font-semibold uppercase tracking-widest text-brand-blue">
           {t('testimonials.title')}
         </h2>
         <a
           href={siteConfig.linkedinRecommendations}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[0.75rem] text-slate-400 hover:text-white transition-colors"
+          className="text-[0.84rem] text-slate-300 transition-colors hover:text-white"
         >
           {t('testimonials.viewLinkedIn')}
         </a>

@@ -1,5 +1,5 @@
 import type { Language } from '../types/content';
-import { featuredProjects, repositoryProjects } from '../data/projects';
+import { projectCaseStudies } from '../data/projects';
 import { siteConfig } from '../data/site';
 
 type SeoPayload = {
@@ -96,7 +96,7 @@ export function applySeo(lang: Language) {
   upsertLink('link[rel="alternate"][hreflang="en"]', 'alternate', siteConfig.canonicalUrl, 'en');
   upsertLink('link[rel="alternate"][hreflang="x-default"]', 'alternate', siteConfig.canonicalUrl, 'x-default');
 
-  const allProjects = [...featuredProjects, ...repositoryProjects];
+  const allProjects = projectCaseStudies;
 
   const personSchema = {
     '@context': 'https://schema.org',
@@ -157,9 +157,9 @@ export function applySeo(lang: Language) {
     description: payload.description,
     hasPart: allProjects.map((project) => ({
       '@type': 'CreativeWork',
-      name: project.title,
-      url: project.href,
-      description: project.summary[lang],
+      name: project.name,
+      url: project.links.live || project.links.repo || siteConfig.canonicalUrl,
+      description: project.headline[lang] || project.problem[lang] || project.headline.es,
     })),
   };
 

@@ -94,7 +94,8 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="w-full lg:w-1/2 flex justify-center">
+        <div className="w-full lg:w-1/2 flex flex-col items-center">
+          <p className="mb-3 text-center text-[0.78rem] text-slate-400">{t('contact.chatHint')}</p>
           <div className="w-full max-w-105 bg-[#0b141a] rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col h-120">
             <div className="bg-[#202c33] px-3 py-3 flex items-center gap-3 shadow-md z-10 cursor-default">
               <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-white/10">

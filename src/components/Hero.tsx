@@ -24,7 +24,7 @@ export default function Hero() {
         {lang === 'es' ? 'EN' : 'ES'}
       </button>
 
-      <div className="relative w-27.5 h-27.5 mb-4 shrink-0">
+      <div className="relative mb-6 h-28 w-28 shrink-0">
         <div className="w-full h-full rounded-full overflow-hidden shadow-lg border-4 border-brand-blue/20 ring-1 ring-white/10">
           <ProfileAvatar
             alt="Fotografía de Wuilmer Bolívar"
@@ -49,7 +49,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="text-[1.5rem] font-bold text-white mb-1"
+        className="mb-3 text-[1.8rem] font-bold text-white md:text-[2.1rem]"
       >
         Wuilmer Bolívar
       </motion.h1>
@@ -58,7 +58,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="text-[0.875rem] text-brand-blue font-semibold uppercase tracking-widest mb-4"
+        className="mb-6 text-[0.95rem] font-semibold uppercase tracking-widest text-brand-blue md:text-[1rem]"
       >
         {t('hero.role')}
       </motion.h2>
@@ -66,8 +66,25 @@ export default function Hero() {
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.18 }}
+        className="mb-4 text-balance text-[1.1rem] font-semibold leading-tight text-white md:text-[1.35rem]"
+      >
+        {t('hero.hook')}
+      </motion.p>
+
+      <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-green/30 bg-brand-green/10 px-3 py-1.5 text-[0.75rem] font-medium text-brand-green">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-70" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-green" />
+        </span>
+        {t('hero.availabilityQuick')}
+      </div>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.2 }}
-        className="text-[0.875rem] text-slate-400 leading-relaxed mb-6"
+        className="mb-6 text-[0.95rem] leading-relaxed text-slate-300"
       >
         {t('hero.tagline')}
       </motion.p>
@@ -89,9 +106,9 @@ export default function Hero() {
         <a
           href={cvHref}
           download={cvFileName}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-brand-blue text-brand-dark font-semibold text-[0.875rem] hover:bg-brand-green transition-colors shadow-[0_12px_30px_rgba(56,189,248,0.25)]"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-green px-6 py-3.5 text-[0.98rem] font-bold text-brand-dark ring-2 ring-brand-green/40 transition-all hover:-translate-y-0.5 hover:bg-[#49e1a7] hover:shadow-[0_16px_36px_rgba(52,211,153,0.45)]"
         >
-          <Download size={18} />
+          <Download size={19} />
           {t('hero.downloadCv')}
         </a>
 
