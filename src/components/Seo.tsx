@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { applySeo } from '../lib/seo';
+import { applySeo, type SeoRoute } from '../lib/seo';
 
-export default function Seo() {
+type SeoProps = {
+  route?: SeoRoute;
+};
+
+export default function Seo({ route = 'home' }: SeoProps) {
   const { lang } = useLanguage();
 
   useEffect(() => {
-    applySeo(lang);
-  }, [lang]);
+    applySeo(lang, route);
+  }, [lang, route]);
 
   return null;
 }

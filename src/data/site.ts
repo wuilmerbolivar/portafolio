@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: 'Wuilmer Bolívar',
-  canonicalUrl: 'https://wuilmerbolivar.vercel.app/',
+  canonicalUrl: 'https://www.wuilmerbolivar.lat/',
   shortName: 'Wuilmer Bolívar',
   location: 'Lima, Perú',
-  email: 'wuilmerbolivar@gmail.com',
+  email: 'wuilmeralexanderbolivar@gmail.com',
   phone: '+51 987 435 331',
   whatsappPhone: '51987435331',
   linkedin: 'https://www.linkedin.com/in/wuilmerbolivar/',
@@ -13,7 +13,7 @@ export const siteConfig = {
   securityGithub: 'https://github.com/4k4m1m3',
   cybersecuritySite: 'https://4k4m1m3.com/',
   cybersecurityHub: 'https://4k4m1m3.github.io/',
-  previewImage: 'https://wuilmerbolivar.vercel.app/preview.png',
+  previewImage: 'https://www.wuilmerbolivar.lat/preview.png',
   cvEs: '/CV-Wuilmer-Bolivar-ES.pdf',
   cvEn: '/CV-Wuilmer-Bolivar-EN.pdf',
 };

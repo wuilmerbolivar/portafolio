@@ -1,7 +1,7 @@
 {
   "name": "Wuilmer Bolívar Portfolio",
   "short_name": "Wuilmer",
-  "description": "Portfolio focused on ITSM, incident management, automation, cybersecurity, and recruiter-ready proof of work.",
+  "description": "CV online and portfolio focused on ITSM, automation, cybersecurity, professional experience, and GitHub projects.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
