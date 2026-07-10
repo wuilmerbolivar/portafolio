@@ -1,6 +1,6 @@
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { Send, MoreVertical, Phone, Video, CheckCheck, ArrowUpRight, Linkedin, Shield, ScrollText } from 'lucide-react';
+import { Send, MoreVertical, Phone, Video, CheckCheck, ArrowUpRight, Linkedin, Shield, ScrollText, Github, BriefcaseBusiness, Code2, Globe2, Mail } from 'lucide-react';
 import { motion } from 'motion/react';
 import { siteConfig } from '../data/site';
 import ProfileAvatar from './ProfileAvatar';
@@ -21,11 +21,19 @@ export default function Contact() {
   const { t, lang } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [message, setMessage] = useState('');
+  const [submittedMessage, setSubmittedMessage] = useState('');
   const [step, setStep] = useState(0);
+  const messageInputRef = useRef<HTMLTextAreaElement | null>(null);
   const currentTime = new Intl.DateTimeFormat(lang === 'es' ? 'es-PE' : 'en-US', {
     hour: '2-digit',
     minute: '2-digit',
   }).format(new Date());
+  const quickMessages = [
+    { label: t('contact.quickRecruiter'), message: t('contact.quickRecruiterMessage'), icon: BriefcaseBusiness },
+    { label: t('contact.quickProject'), message: t('contact.quickProjectMessage'), icon: Code2 },
+    { label: t('contact.quickServices'), message: t('contact.quickServicesMessage'), icon: Globe2 },
+  ];
+  const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(t('contact.emailSubject'))}`;
 
   useEffect(() => {
     setStep(0);
@@ -39,26 +47,42 @@ export default function Contact() {
     };
   }, [lang]);
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    if (!message.trim()) {
+  const sendMessage = () => {
+    const normalizedMessage = message.trim();
+
+    if (!normalizedMessage) {
       return;
     }
 
-    const greeting = lang === 'es' ? 'Hola Wuilmer 👋' : 'Hi Wuilmer 👋';
-    const text = encodeURIComponent(`${greeting}\n\n${message}`);
+    const greeting = lang === 'es' ? 'Hola Wuilmer' : 'Hi Wuilmer';
+    const text = encodeURIComponent(`${greeting}\n\n${normalizedMessage}`);
     const whatsappUrl = `https://wa.me/${siteConfig.whatsappPhone}?text=${text}`;
 
     setSubmitted(true);
+    setSubmittedMessage(normalizedMessage);
 
     setTimeout(() => {
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      const openedWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (openedWindow) {
+        openedWindow.opener = null;
+      }
     }, 600);
 
     setTimeout(() => {
       setSubmitted(false);
+      setSubmittedMessage('');
       setMessage('');
     }, 4000);
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    sendMessage();
+  };
+
+  const handleQuickMessage = (nextMessage: string) => {
+    setMessage(nextMessage);
+    window.setTimeout(() => messageInputRef.current?.focus(), 0);
   };
 
   return (
@@ -78,8 +102,16 @@ export default function Contact() {
             <h3 className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-slate-200">{t('contact.socialTitle')}</h3>
             <p className="mt-2 text-[0.82rem] leading-relaxed text-slate-400">{t('contact.socialDescription')}</p>
             <div className="mt-4 grid gap-3">
+              <a href={emailHref} className="inline-flex items-center justify-between rounded-xl border border-brand-green/20 bg-brand-green/10 px-4 py-3 text-[0.85rem] font-semibold text-brand-green hover:bg-brand-green/15 transition-colors">
+                <span className="inline-flex items-center gap-2"><Mail size={16} aria-hidden="true" />{t('contact.email')}</span>
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
               <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-between rounded-xl border border-white/8 bg-white/5 px-4 py-3 text-[0.85rem] text-slate-200 hover:bg-white/8 transition-colors">
                 <span className="inline-flex items-center gap-2"><Linkedin size={16} aria-hidden="true" />{t('contact.linkedin')}</span>
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+              <a href={siteConfig.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-between rounded-xl border border-white/8 bg-white/5 px-4 py-3 text-[0.85rem] text-slate-200 hover:bg-white/8 transition-colors">
+                <span className="inline-flex items-center gap-2"><Github size={16} aria-hidden="true" />{t('contact.github')}</span>
                 <ArrowUpRight size={15} aria-hidden="true" />
               </a>
               <a href={siteConfig.newsletter} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-between rounded-xl border border-white/8 bg-white/5 px-4 py-3 text-[0.85rem] text-slate-200 hover:bg-white/8 transition-colors">
@@ -90,6 +122,23 @@ export default function Contact() {
                 <span className="inline-flex items-center gap-2"><Shield size={16} aria-hidden="true" />{t('contact.securitySite')}</span>
                 <ArrowUpRight size={15} aria-hidden="true" />
               </a>
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-white/8 bg-white/4 p-4">
+            <h3 className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-slate-200">{t('contact.quickTitle')}</h3>
+            <div className="mt-4 grid gap-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {quickMessages.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => handleQuickMessage(item.message)}
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/8 bg-white/5 px-3 py-2.5 text-center text-[0.78rem] font-medium text-slate-200 transition-colors hover:border-brand-green/30 hover:bg-brand-green/10 hover:text-white"
+                >
+                  <item.icon size={15} aria-hidden="true" />
+                  {item.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -106,9 +155,9 @@ export default function Contact() {
                 <p className="text-[#8696a0] text-[0.8rem] truncate">{t('contact.online')}</p>
               </div>
               <div className="flex gap-4 text-[#aebac1] pr-2">
-                <Video size={18} className="cursor-not-allowed hover:text-white transition-colors" />
-                <Phone size={18} className="cursor-not-allowed hover:text-white transition-colors" />
-                <MoreVertical size={18} className="cursor-not-allowed hover:text-white transition-colors" />
+                <Video size={18} className="cursor-not-allowed hover:text-white transition-colors" aria-hidden="true" />
+                <Phone size={18} className="cursor-not-allowed hover:text-white transition-colors" aria-hidden="true" />
+                <MoreVertical size={18} className="cursor-not-allowed hover:text-white transition-colors" aria-hidden="true" />
               </div>
             </div>
 
@@ -150,7 +199,7 @@ export default function Contact() {
 
               {submitted ? (
                 <motion.div initial={{ opacity: 0, scale: 0.95, originX: 1, originY: 1 }} animate={{ opacity: 1, scale: 1 }} className="bg-[#005c4b] text-[#e9edef] rounded-tl-lg rounded-br-sm rounded-bl-lg rounded-tr-sm p-2.5 px-3 max-w-[88%] self-end shadow-sm relative mt-auto">
-                  <p className="text-[0.875rem] leading-[1.4] pr-14 pb-2 whitespace-pre-wrap break-words">{message}</p>
+                  <p className="text-[0.875rem] leading-[1.4] pr-14 pb-2 whitespace-pre-wrap break-words">{submittedMessage}</p>
                   <div className="absolute bottom-1 right-2 flex items-center gap-1">
                     <span className="text-[#8696a0] text-[0.65rem] font-medium opacity-80">{currentTime}</span>
                     <CheckCheck size={14} className="text-[#53bdeb]" />
@@ -162,6 +211,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="bg-[#202c33] px-2 py-2.5 flex items-end gap-2 shrink-0 z-10 w-full">
               <div className="flex-1 bg-[#2a3942] rounded-2xl flex items-center min-h-11 px-4 cursor-text w-full overflow-hidden">
                 <textarea
+                  ref={messageInputRef}
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder={t('contact.message')}
@@ -170,9 +220,7 @@ export default function Contact() {
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' && !event.shiftKey) {
                       event.preventDefault();
-                      if (message.trim()) {
-                        handleSubmit(event as unknown as FormEvent);
-                      }
+                      sendMessage();
                     }
                   }}
                 />
@@ -181,7 +229,7 @@ export default function Contact() {
                 type="submit"
                 disabled={!message.trim()}
                 className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 transition-colors ${message.trim() ? 'bg-[#00a884] text-white hover:bg-[#008f6f]' : 'bg-[#2a3942] text-[#8696a0] cursor-not-allowed'}`}
-                aria-label="Enviar"
+                aria-label={t('contact.sendLabel')}
               >
                 <Send size={20} className="-ml-0.5" fill={message.trim() ? 'currentColor' : 'none'} />
               </button>
